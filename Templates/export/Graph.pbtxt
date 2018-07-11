@@ -1,0 +1,488 @@
+node {
+  name: "tfc_input_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  op: "Placeholder"
+  attr {
+    key: "shape"
+    value {
+      shape {
+        unknown_rank: true
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "tfc_func_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  op: "S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf_CPU.device_partition"
+  input: "tfc_input_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  device: "/device:CPU:0"
+}
+node {
+  name: "tfc_output_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  op: "Identity"
+  input: "tfc_func_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "arg_tensor_enqueue_0"
+  op: "Placeholder"
+  attr {
+    key: "shape"
+    value {
+      shape {
+        unknown_rank: true
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "fifo_queue_0"
+  op: "FIFOQueueV2"
+  device: "/device:CPU:0"
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "capacity"
+    value {
+      i: 1
+    }
+  }
+  attr {
+    key: "shapes"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "fifo_queue_0"
+    }
+  }
+  attr {
+    key: "component_types"
+    value {
+      list {
+        type: [DT_INT32]
+      }
+    }
+  }
+}
+node {
+  name: "fifo_queue_enqueue_0"
+  op: "QueueEnqueueV2"
+  input: "fifo_queue_0"
+  input: "arg_tensor_enqueue_0"
+  device: "/device:CPU:0"
+  attr {
+    key: "timeout_ms"
+    value {
+      i: -1
+    }
+  }
+  attr {
+    key: "Tcomponents"
+    value {
+      list {
+        type: [DT_INT32]
+      }
+    }
+  }
+}
+library {
+  function {
+    signature {
+      name: "S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf_CPU.device_partition"
+      input_arg {
+        name: "arg_0"
+        type: DT_FLOAT
+      }
+      output_arg {
+        name: "runcontroldependency"
+        type: DT_FLOAT
+      }
+      is_stateful: true
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_..12.6"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT64
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT64
+            tensor_shape {
+            }
+            int64_val: [1]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._1.12.6"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            int_val: [0]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "fifo_queue_0"
+      op: "FIFOQueueV2"
+      device: "/device:CPU:0"
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "capacity"
+        value {
+          i: 1
+        }
+      }
+      attr {
+        key: "shapes"
+        value {
+          list {
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: "fifo_queue_0"
+        }
+      }
+      attr {
+        key: "component_types"
+        value {
+          list {
+            type: [DT_INT32]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "fifo_queue_dequeue_0"
+      op: "QueueDequeueV2"
+      input: "fifo_queue_0:handle:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "timeout_ms"
+        value {
+          i: -1
+        }
+      }
+      attr {
+        key: "component_types"
+        value {
+          list {
+            type: [DT_INT32]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._2.12.6"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            int_val: [3]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._3.12.6"
+      op: "StridedSlice"
+      input: "arg_0"
+      input: "op/opsStridedSliceTest.last_._1.12.6:output:0"
+      input: "fifo_queue_dequeue_0:components:0"
+      input: "op/opsStridedSliceTest.last_._2.12.6:output:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "begin_mask"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "ellipsis_mask"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shrink_axis_mask"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "end_mask"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "Index"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "new_axis_mask"
+        value {
+          i: 0
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._4.12.6"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: [0.00999999978]
+          }
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._5.12.6"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 2
+              }
+            }
+            tensor_content: "\t\000\000\000\002\000\000\000"
+          }
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._6.12.6"
+      op: "Fill"
+      input: "op/opsStridedSliceTest.last_._5.12.6:output:0"
+      input: "op/opsStridedSliceTest.last_._4.12.6:output:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "index_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._7.12.6"
+      op: "MatMul"
+      input: "op/opsStridedSliceTest.last_._3.12.6:output:0"
+      input: "op/opsStridedSliceTest.last_._6.12.6:output:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "transpose_b"
+        value {
+          b: false
+        }
+      }
+      attr {
+        key: "transpose_a"
+        value {
+          b: false
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._8.12.6"
+      op: "Cast"
+      input: "op/opsStridedSliceTest.last_..12.6:output:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "SrcT"
+        value {
+          type: DT_INT64
+        }
+      }
+      attr {
+        key: "DstT"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._9.12.6"
+      op: "Neg"
+      input: "op/opsStridedSliceTest.last_._7.12.6:product:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._10.12.6"
+      op: "Exp"
+      input: "op/opsStridedSliceTest.last_._9.12.6:y:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._11.12.6"
+      op: "Add"
+      input: "op/opsStridedSliceTest.last_._8.12.6:y:0"
+      input: "op/opsStridedSliceTest.last_._10.12.6:y:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "op/opsStridedSliceTest.last_._12.12.6"
+      op: "Div"
+      input: "op/opsStridedSliceTest.last_._8.12.6:y:0"
+      input: "op/opsStridedSliceTest.last_._11.12.6:z:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "RunControlDependency"
+      op: "Identity"
+      input: "op/opsStridedSliceTest.last_._12.12.6:z:0"
+      input: "^fifo_queue_dequeue_0"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+    }
+    ret {
+      key: "runcontroldependency"
+      value: "RunControlDependency:output:0"
+    }
+  }
+}
+versions {
+  producer: 26
+  min_consumer: 12
+}
