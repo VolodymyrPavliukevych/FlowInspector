@@ -10,16 +10,24 @@ func emptyFunction(_ some: String) {
 }
 
 func opsStridedSliceTest(last value: Float) -> Tensor<Float> {
+    let someA = value
+    let someB: Float = 8.7
+    let someC = 3.7 * someA + someB
+    
     let image: [Float] = [01, 02, 03, 04, 05, 06, 07, 08, 09,
                           11, 12, 13, 14, 15, 16, 17, 18, 19,
                           21, 22, 23, 24, 25, 26, 27, 28, 29,
-                          31, 32, 33, 34, 35, 36, 37, 38, value]
-
+                          31, 32, 33, 34, 35, 36, 37, 38, someC]
+    
     let tensor = Tensor<Float>(shape: TensorShape([4, 9]), scalars: image)
+    let begin = Tensor<Int32>(shape: TensorShape([1]), scalars: [0])
+    let strides = Tensor<Int32>(shape: TensorShape([1]), scalars: [3])
+    let end = Tensor<Int32>(shape: TensorShape([1]), scalars: [Int32(image.count)])
+    
     let result = Raw.stridedSlice(tensor,
-                                  begin: Tensor<Int32>(shape: TensorShape([1]), scalars: [0]),
-                                  end: Tensor<Int32>(shape: TensorShape([1]), scalars: [Int32(image.count)]),
-                                  strides: Tensor<Int32>(shape: TensorShape([1]), scalars: [3]),
+                                  begin: begin,
+                                  end: end,
+                                  strides: strides,
                                   beginMask: 0,
                                   endMask: 0,
                                   ellipsisMask: 0,
@@ -33,6 +41,12 @@ func opsStridedSliceTest(last value: Float) -> Tensor<Float> {
     return z
 }
 
+if CommandLine.arguments.count < 2 {
+    print("Needs arg.")
+    exit(0)
+}
 
-let result = opsStridedSliceTest(last: 39.0)
+guard let arg = Float(CommandLine.arguments[1]) else { exit(0) }
+
+let result = opsStridedSliceTest(last: arg)
 print(result)
