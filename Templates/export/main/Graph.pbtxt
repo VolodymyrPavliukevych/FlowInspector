@@ -1,6 +1,12 @@
 node {
-  name: "tfc_input_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  name: "tfc_input_0_main.tf"
   op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
   attr {
     key: "shape"
     value {
@@ -9,23 +15,17 @@ node {
       }
     }
   }
-  attr {
-    key: "dtype"
-    value {
-      type: DT_FLOAT
-    }
-  }
 }
 node {
-  name: "tfc_func_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
-  op: "S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf_CPU.device_partition"
-  input: "tfc_input_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  name: "tfc_func_main.tf"
+  op: "main.tf_CPU.device_partition"
+  input: "tfc_input_0_main.tf"
   device: "/device:CPU:0"
 }
 node {
-  name: "tfc_output_0_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  name: "tfc_output_0_main.tf"
   op: "Identity"
-  input: "tfc_func_S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf"
+  input: "tfc_func_main.tf"
   attr {
     key: "T"
     value {
@@ -37,17 +37,17 @@ node {
   name: "arg_tensor_enqueue_0"
   op: "Placeholder"
   attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
     key: "shape"
     value {
       shape {
         unknown_rank: true
       }
-    }
-  }
-  attr {
-    key: "dtype"
-    value {
-      type: DT_INT32
     }
   }
 }
@@ -56,15 +56,23 @@ node {
   op: "FIFOQueueV2"
   device: "/device:CPU:0"
   attr {
-    key: "container"
+    key: "component_types"
     value {
-      s: ""
+      list {
+        type: [DT_INT32]
+      }
     }
   }
   attr {
     key: "capacity"
     value {
       i: 1
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
     }
   }
   attr {
@@ -80,14 +88,6 @@ node {
       s: "fifo_queue_0"
     }
   }
-  attr {
-    key: "component_types"
-    value {
-      list {
-        type: [DT_INT32]
-      }
-    }
-  }
 }
 node {
   name: "fifo_queue_enqueue_0"
@@ -96,12 +96,6 @@ node {
   input: "arg_tensor_enqueue_0"
   device: "/device:CPU:0"
   attr {
-    key: "timeout_ms"
-    value {
-      i: -1
-    }
-  }
-  attr {
     key: "Tcomponents"
     value {
       list {
@@ -109,11 +103,17 @@ node {
       }
     }
   }
+  attr {
+    key: "timeout_ms"
+    value {
+      i: -1
+    }
+  }
 }
 library {
   function {
     signature {
-      name: "S7SwiftAI19opsStridedSliceTest4last10TensorFlow0H0VySfGSf_tF.tf_CPU.device_partition"
+      name: "main.tf_CPU.device_partition"
       input_arg {
         name: "arg_0"
         type: DT_FLOAT
@@ -125,15 +125,9 @@ library {
       is_stateful: true
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_..12.6"
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.6.7"
       op: "Const"
       device: "/device:CPU:0"
-      attr {
-        key: "dtype"
-        value {
-          type: DT_INT64
-        }
-      }
       attr {
         key: "value"
         value {
@@ -145,17 +139,17 @@ library {
           }
         }
       }
-    }
-    node_def {
-      name: "op/opsStridedSliceTest.last_._1.12.6"
-      op: "Const"
-      device: "/device:CPU:0"
       attr {
         key: "dtype"
         value {
-          type: DT_INT32
+          type: DT_INT64
         }
       }
+    }
+    node_def {
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.23.29"
+      op: "Const"
+      device: "/device:CPU:0"
       attr {
         key: "value"
         value {
@@ -170,21 +164,60 @@ library {
           }
         }
       }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node_def {
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.24.31"
+      op: "Const"
+      device: "/device:CPU:0"
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            int_val: [3]
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
     }
     node_def {
       name: "fifo_queue_0"
       op: "FIFOQueueV2"
       device: "/device:CPU:0"
       attr {
-        key: "container"
+        key: "component_types"
         value {
-          s: ""
+          list {
+            type: [DT_INT32]
+          }
         }
       }
       attr {
         key: "capacity"
         value {
           i: 1
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
         }
       }
       attr {
@@ -200,14 +233,6 @@ library {
           s: "fifo_queue_0"
         }
       }
-      attr {
-        key: "component_types"
-        value {
-          list {
-            type: [DT_INT32]
-          }
-        }
-      }
     }
     node_def {
       name: "fifo_queue_dequeue_0"
@@ -215,12 +240,6 @@ library {
       input: "fifo_queue_0:handle:0"
       device: "/device:CPU:0"
       attr {
-        key: "timeout_ms"
-        value {
-          i: -1
-        }
-      }
-      attr {
         key: "component_types"
         value {
           list {
@@ -228,48 +247,29 @@ library {
           }
         }
       }
-    }
-    node_def {
-      name: "op/opsStridedSliceTest.last_._2.12.6"
-      op: "Const"
-      device: "/device:CPU:0"
       attr {
-        key: "dtype"
+        key: "timeout_ms"
         value {
-          type: DT_INT32
-        }
-      }
-      attr {
-        key: "value"
-        value {
-          tensor {
-            dtype: DT_INT32
-            tensor_shape {
-              dim {
-                size: 1
-              }
-            }
-            int_val: [3]
-          }
+          i: -1
         }
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._3.12.6"
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.27.22"
       op: "StridedSlice"
       input: "arg_0"
-      input: "op/opsStridedSliceTest.last_._1.12.6:output:0"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.23.29:output:0"
       input: "fifo_queue_dequeue_0:components:0"
-      input: "op/opsStridedSliceTest.last_._2.12.6:output:0"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.24.31:output:0"
       device: "/device:CPU:0"
       attr {
-        key: "begin_mask"
+        key: "new_axis_mask"
         value {
           i: 0
         }
       }
       attr {
-        key: "ellipsis_mask"
+        key: "begin_mask"
         value {
           i: 0
         }
@@ -278,6 +278,18 @@ library {
         key: "T"
         value {
           type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Index"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "ellipsis_mask"
+        value {
+          i: 0
         }
       }
       attr {
@@ -292,29 +304,11 @@ library {
           i: 0
         }
       }
-      attr {
-        key: "Index"
-        value {
-          type: DT_INT32
-        }
-      }
-      attr {
-        key: "new_axis_mask"
-        value {
-          i: 0
-        }
-      }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._4.12.6"
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.37.66"
       op: "Const"
       device: "/device:CPU:0"
-      attr {
-        key: "dtype"
-        value {
-          type: DT_FLOAT
-        }
-      }
       attr {
         key: "value"
         value {
@@ -326,17 +320,17 @@ library {
           }
         }
       }
-    }
-    node_def {
-      name: "op/opsStridedSliceTest.last_._5.12.6"
-      op: "Const"
-      device: "/device:CPU:0"
       attr {
         key: "dtype"
         value {
-          type: DT_INT32
+          type: DT_FLOAT
         }
       }
+    }
+    node_def {
+      name: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.37.25"
+      op: "Const"
+      device: "/device:CPU:0"
       attr {
         key: "value"
         value {
@@ -351,36 +345,42 @@ library {
           }
         }
       }
-    }
-    node_def {
-      name: "op/opsStridedSliceTest.last_._6.12.6"
-      op: "Fill"
-      input: "op/opsStridedSliceTest.last_._5.12.6:output:0"
-      input: "op/opsStridedSliceTest.last_._4.12.6:output:0"
-      device: "/device:CPU:0"
       attr {
-        key: "T"
-        value {
-          type: DT_FLOAT
-        }
-      }
-      attr {
-        key: "index_type"
+        key: "dtype"
         value {
           type: DT_INT32
         }
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._7.12.6"
-      op: "MatMul"
-      input: "op/opsStridedSliceTest.last_._3.12.6:output:0"
-      input: "op/opsStridedSliceTest.last_._6.12.6:output:0"
+      name: "op"
+      op: "Fill"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.37.25:output:0"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.37.66:output:0"
       device: "/device:CPU:0"
+      attr {
+        key: "index_type"
+        value {
+          type: DT_INT32
+        }
+      }
       attr {
         key: "T"
         value {
           type: DT_FLOAT
+        }
+      }
+    }
+    node_def {
+      name: "op_1"
+      op: "MatMul"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.27.22:output:0"
+      input: "op:output:0"
+      device: "/device:CPU:0"
+      attr {
+        key: "transpose_a"
+        value {
+          b: false
         }
       }
       attr {
@@ -390,16 +390,16 @@ library {
         }
       }
       attr {
-        key: "transpose_a"
+        key: "T"
         value {
-          b: false
+          type: DT_FLOAT
         }
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._8.12.6"
+      name: "op_2"
       op: "Cast"
-      input: "op/opsStridedSliceTest.last_..12.6:output:0"
+      input: "op//Users/roaming/Desktop/FlowInspector/Templates/SwiftAI/Sources/SwiftAI/main.swift.6.7:output:0"
       device: "/device:CPU:0"
       attr {
         key: "SrcT"
@@ -415,9 +415,9 @@ library {
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._9.12.6"
+      name: "op_3"
       op: "Neg"
-      input: "op/opsStridedSliceTest.last_._7.12.6:product:0"
+      input: "op_1:product:0"
       device: "/device:CPU:0"
       attr {
         key: "T"
@@ -427,9 +427,9 @@ library {
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._10.12.6"
+      name: "op_4"
       op: "Exp"
-      input: "op/opsStridedSliceTest.last_._9.12.6:y:0"
+      input: "op_3:y:0"
       device: "/device:CPU:0"
       attr {
         key: "T"
@@ -439,10 +439,10 @@ library {
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._11.12.6"
+      name: "op_5"
       op: "Add"
-      input: "op/opsStridedSliceTest.last_._8.12.6:y:0"
-      input: "op/opsStridedSliceTest.last_._10.12.6:y:0"
+      input: "op_2:y:0"
+      input: "op_4:y:0"
       device: "/device:CPU:0"
       attr {
         key: "T"
@@ -452,10 +452,10 @@ library {
       }
     }
     node_def {
-      name: "op/opsStridedSliceTest.last_._12.12.6"
+      name: "op_6"
       op: "Div"
-      input: "op/opsStridedSliceTest.last_._8.12.6:y:0"
-      input: "op/opsStridedSliceTest.last_._11.12.6:z:0"
+      input: "op_2:y:0"
+      input: "op_5:z:0"
       device: "/device:CPU:0"
       attr {
         key: "T"
@@ -467,7 +467,7 @@ library {
     node_def {
       name: "RunControlDependency"
       op: "Identity"
-      input: "op/opsStridedSliceTest.last_._12.12.6:z:0"
+      input: "op_6:z:0"
       input: "^fifo_queue_dequeue_0"
       attr {
         key: "T"
